@@ -1,0 +1,5 @@
+{
+ :open-url   false
+ :watch-dirs ["src" "dev"]
+ :css-dirs   ["resources/public"]
+ }

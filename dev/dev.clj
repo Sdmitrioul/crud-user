@@ -1,6 +1,9 @@
 (ns dev
-  (:require [integrant.repl :as repl]
-            [user.system :as system]))
+  (:require
+    [figwheel.main]
+    [figwheel.main.api]
+    [integrant.repl :as repl]
+    [user.system :as system]))
 
 (defn start []
   (set! *print-namespace-maps* false)
@@ -10,6 +13,12 @@
 
 (defn stop [] (repl/halt))
 
+
+(defn cljs [] (if (get @figwheel.main/build-registry "dev")
+                (figwheel.main.api/cljs-repl "dev")
+                (figwheel.main.api/start "dev")))
+
 (comment (start)
          (stop)
+         (cljs)
          integrant.repl.state/system)
