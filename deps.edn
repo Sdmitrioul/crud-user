@@ -11,6 +11,8 @@
            http-kit/http-kit         {:mvn/version "2.6.0"}
            compojure/compojure       {:mvn/version "1.6.3"}
            cjohansen/dumdom          {:mvn/version "2022.09.28"}
+           metosin/scjsv             {:mvn/version "0.6.2"}
+           honeysql/honeysql         {:mvn/version "1.0.461"}
            com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
            }
  :aliases {
