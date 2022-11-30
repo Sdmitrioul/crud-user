@@ -2,6 +2,23 @@
 <project version="4">
   <component name="DepsProjectSettings">
     <option name="cljConfigPath" value="" />
+    <option name="enabledAliases">
+      <set>
+        <option value="deps" />
+        <option value="dev" />
+        <option value="nREPL" />
+        <option value="nrepl" />
+        <option value="test" />
+      </set>
+    </option>
+    <option name="toolAliases">
+      <set>
+        <option value="deps" />
+        <option value="dev" />
+        <option value="nREPL" />
+        <option value="test" />
+      </set>
+    </option>
   </component>
   <component name="DepsProjectsManager">
     <option name="projectFiles">

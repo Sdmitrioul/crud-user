@@ -3,6 +3,7 @@
  :deps    {
            org.clojure/clojure       {:mvn/version "1.11.1"}
            org.clojure/clojurescript {:mvn/version "1.11.60"}
+           org.clojure/data.json     {:mvn/version "2.4.0"}
            integrant/integrant       {:mvn/version "0.8.0"}
            http-kit/http-kit         {:mvn/version "2.6.0"}
            compojure/compojure       {:mvn/version "1.6.3"}
@@ -10,22 +11,15 @@
            com.fzakaria/slf4j-timbre {:mvn/version "0.3.21"}
            }
  :aliases {
-           :dev  {:extra-paths ["test", "dev", "dev-resources"]
-                  :extra-deps  {
-                                integrant/repl             {:mvn/version "0.3.2"}
-                                cider/piggieback           {:mvn/version "0.5.3"}
-                                cider/cider-nrepl          {:mvn/version "0.28.7"}
-                                com.bhauman/figwheel-main  {:mvn/version "0.2.18"}
-                                cjohansen/gadget-inspector {:mvn/version "0.2020.09.10"}
-                                }
-                  :jvm-opts    ["-XX:-OmitStackTraceInFastThrow"]
-                  }
-           :repl {:extra-deps  {criterium                  {:mvn/version "0.4.6"}
-                                cider/cider-nrepl          {:mvn/version "0.28.7"} ;; not need, but for compatibility with dojo codebase
-                                nrepl                      {:mvn/version "1.0.0"}
-                                com.cognitect/transcriptor {:mvn/version "0.1.5"}
-                                com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
-                  :extra-paths ["src" "dev" "test" "build"]
-                  :main-opts   ["--main" "nrepl.cmdline" #_"--port" #_"7888"]}
+           :dev {:extra-paths ["test", "dev", "dev-resources"]
+                 :extra-deps  {
+                               integrant/repl             {:mvn/version "0.3.2"}
+                               cider/piggieback           {:mvn/version "0.5.3"}
+                               com.bhauman/figwheel-main  {:mvn/version "0.2.18"}
+                               com.bhauman/figwheel-repl  {:mvn/version "0.2.18"}
+                               cjohansen/gadget-inspector {:mvn/version "0.2020.09.10"}
+                               }
+                 :jvm-opts    ["-XX:-OmitStackTraceInFastThrow"]
+                 }
            }
  }
