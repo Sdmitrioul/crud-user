@@ -1,6 +1,6 @@
 (ns user.system
   (:require [clojure.java.io :as io]
-            [compojure.core :refer [DELETE GET POST routes]]
+            [compojure.core :refer [DELETE GET POST PUT routes]]
             [compojure.route :as route]
             [integrant.core :as ig]
             [org.httpkit.server :as server]
@@ -23,6 +23,7 @@
           (GET "/api/users" [] handlers/get-all-users)
           (GET "/api/users/:id" [] handlers/get-user-by-id)
           (POST "/api/users" [] handlers/create-user)
+          (PUT "/api/users/:id" [] handlers/update-user-by-id)
           (DELETE "/api/users/:id" [] handlers/delete-user-by-id)
           (route/resources "/")
           (route/not-found "This page doesn't exist!")))

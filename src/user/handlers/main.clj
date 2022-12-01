@@ -1,6 +1,5 @@
 (ns user.handlers.main
-  (:require [clojure.data.json :as json]
-            [user.db.main :as db]
+  (:require [user.db.main :as db]
             [user.handlers.utils :refer :all]))
 
 (defn get-all-users
@@ -8,9 +7,7 @@
   [_]
   (response
     200
-    (json/write-str
-      {:result (-> (db/get-users))}
-      :value-fn date-writer)
+    {:result (db/get-users)}
     )
   )
 
@@ -21,10 +18,8 @@
     [id (get-id req)]
     (response
       200
-      (json/write-str
-        (-> id (db/get-user))
-        :value-fn date-writer))
-    ))
+      {:result (db/get-user id)}
+      )))
 
 (defn delete-user-by-id
   "Delete user from bd!"
@@ -32,8 +27,20 @@
   (let [id (get-id req)]
     (response
       202
-      (json/write-str (-> id (db/delete-user))))
-    ))
+      {:result (db/delete-user id)}
+      )))
+
+(defn update-user-by-id
+  [req]
+  (let [id (get-id req)
+        body (get-body req)
+        report (user-validator body)]
+    (if
+      (nil? report)
+      (response 200 {:result (-> body (parse-json-user) (db/update-user id))})
+      (response 400 {:error report}))
+    )
+  )
 
 (defn create-user
   "Create user in DB!"
@@ -42,15 +49,8 @@
         report (user-validator body)]
     (if
       (nil? report)
-      (response
-        201
-        (json/write-str
-          (db/create-user (json/read-str
-                            body
-                            :key-fn keyword
-                            :value-fn date-reader))
-          :value-fn date-writer))
-      (response 400 (json/write-str {:error report}))
+      (response 201 {:result (-> body (parse-json-user) (db/create-user))})
+      (response 400 {:error report})
       )
     )
   )

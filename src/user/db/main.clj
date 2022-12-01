@@ -1,51 +1,53 @@
 (ns user.db.main
   (:require [clojure.java.jdbc :as jdbc]
             [dotenv :refer [env]]
-            [honeysql.core :as sql])
-  (:import (java.time LocalDate)))
+            [honeysql.core :as sql]))
 
 (def -db
-  {
-   :dbtype   "postgresql"
+  {:dbtype   "postgresql"
    :dbname   (env :DB_NAME)
    :host     (env :DB_HOST)
    :user     (env :DB_USER)
    :password (env :DB_PASS)
-   }
-  )
+   })
 
 (defn get-users
   []
-  (jdbc/query -db (sql/format {
-                               :select [:*]
-                               :from   [:users]}))
-  )
+  (jdbc/query
+    -db
+    (sql/format {:select [:*]
+                 :from   [:users]})
+    ))
 
 (defn get-user
   [id]
   (jdbc/query
     -db
-    (sql/format {
-                 :select [:*]
+    (sql/format {:select [:*]
                  :from   [:users]
                  :where  [:= :user_id id]
-                 }
-                )
-    )
-  )
+                 })
+    ))
 
 (defn delete-user
   [id]
   (jdbc/delete!
     -db
     :users
-    ["user_id = ?" id]
-    )
+    ["user_id = ?" id])
   )
 
 (defn create-user
   [user]
-  (let [_ (println user)] (jdbc/insert!
-    -db
-    :users
-    user)))
+  (jdbc/insert! -db :users user)
+  )
+
+(defn update-user
+  [user id]
+  (do
+    (jdbc/update!
+      -db
+      :users
+      (select-keys user [:full_name :gender :birth_date :address :oms_number])
+      ["user_id = ?" id])
+    (get-user id)))
