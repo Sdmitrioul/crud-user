@@ -2,7 +2,7 @@
   (:require [clojure.java.jdbc :as jdbc]
             [dotenv :refer [env]]
             [honeysql.core :as sql])
-  )
+  (:import (java.time LocalDate)))
 
 (def -db
   {
@@ -42,3 +42,10 @@
     ["user_id = ?" id]
     )
   )
+
+(defn create-user
+  [user]
+  (let [_ (println user)] (jdbc/insert!
+    -db
+    :users
+    user)))

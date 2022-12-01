@@ -1,23 +1,28 @@
 (ns user.system
   (:require [clojure.java.io :as io]
-            [user.handlers.main :as handlers]
+            [compojure.core :refer [DELETE GET POST routes]]
             [compojure.route :as route]
-            [compojure.core :refer [GET DELETE routes]]
             [integrant.core :as ig]
-            [org.httpkit.server :as server]))
+            [org.httpkit.server :as server]
+            [user.handlers.main :as handlers]))
 
-(def system {:app/config  {}
+(def system {
+             :app/config  {}
 
-             :app/handler  {}
+             :app/handler {}
 
-             :app/adapter {:config  (ig/ref :app/config)
-                           :handler (ig/ref :app/handler)}}
+             :app/adapter {
+                           :config  (ig/ref :app/config)
+                           :handler (ig/ref :app/handler)
+                           }
+             }
   )
 
 (defmethod ig/init-key :app/handler [_ _]
   (routes (GET "/" [] (io/resource "public/index.html"))
           (GET "/api/users" [] handlers/get-all-users)
           (GET "/api/users/:id" [] handlers/get-user-by-id)
+          (POST "/api/users" [] handlers/create-user)
           (DELETE "/api/users/:id" [] handlers/delete-user-by-id)
           (route/resources "/")
           (route/not-found "This page doesn't exist!")))

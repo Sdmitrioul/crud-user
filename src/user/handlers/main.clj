@@ -1,14 +1,16 @@
 (ns user.handlers.main
   (:require [clojure.data.json :as json]
             [user.db.main :as db]
-            [user.db.utils :refer :all]))
+            [user.handlers.utils :refer :all]))
 
 (defn get-all-users
   "Retrieve all users from bd!"
   [_]
-  (success-result
+  (response
     200
-    (json/write-str {:result (-> (db/get-users))})
+    (json/write-str
+      {:result (-> (db/get-users))}
+      :value-fn date-writer)
     )
   )
 
@@ -17,20 +19,39 @@
   [req]
   (let
     [id (get-id req)]
-    (success-result 200 (json/write-str (-> id (db/get-user))))
+    (response
+      200
+      (json/write-str
+        (-> id (db/get-user))
+        :value-fn date-writer))
     ))
 
 (defn delete-user-by-id
   "Delete user from bd!"
   [req]
   (let [id (get-id req)]
-    (success-result 201 (json/write-str (-> id (db/delete-user))))
+    (response
+      202
+      (json/write-str (-> id (db/delete-user))))
     ))
 
 (defn create-user
-  "Create user in DB"
+  "Create user in DB!"
   [req]
-  (let []
+  (let [body (get-body req)
+        report (user-validator body)]
+    (if
+      (nil? report)
+      (response
+        201
+        (json/write-str
+          (db/create-user (json/read-str
+                            body
+                            :key-fn keyword
+                            :value-fn date-reader))
+          :value-fn date-writer))
+      (response 400 (json/write-str {:error report}))
+      )
     )
   )
 
