@@ -22,6 +22,7 @@
   (routes (GET "/" [] (io/resource "public/index.html"))
           (GET "/api/users" [] handlers/get-all-users)
           (GET "/api/users/:id" [] handlers/get-user-by-id)
+          (GET "/api/users/search" [] handlers/search-for-user)
           (POST "/api/users" [] handlers/create-user)
           (PUT "/api/users/:id" [] handlers/update-user-by-id)
           (DELETE "/api/users/:id" [] handlers/delete-user-by-id)

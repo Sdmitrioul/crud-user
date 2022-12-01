@@ -55,3 +55,9 @@
     )
   )
 
+(defn search-for-user
+  [req]
+  (let [name (get-in req [:params :fullName])]
+    (response 200 {:result (db/search-user name)})
+    ))
+

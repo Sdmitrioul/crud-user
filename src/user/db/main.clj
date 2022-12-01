@@ -51,3 +51,15 @@
       (select-keys user [:full_name :gender :birth_date :address :oms_number])
       ["user_id = ?" id])
     (get-user id)))
+
+(defn search-user
+  [name]
+  (let
+    [pattern (str "%" name "%")]
+    (jdbc/query
+      -db
+      (sql/format {:select [:*]
+                   :from   [:users]
+                   :where  [:like :full_name pattern]
+                   }
+                  ))))
