@@ -2,24 +2,12 @@
   (:refer-clojure :exclude [abs update-keys])
   (:require
     [figwheel.main]
-    [figwheel.main.api]
-    [integrant.repl :as repl]
-    [user.system :as system]))
-
-(defn start []
-  (set! *print-namespace-maps* false)
-  (repl/set-prep!
-    (constantly system/system))
-  (repl/go))
-
-(defn stop [] (repl/halt))
-
+    [figwheel.main.api]))
 
 (defn cljs [] (if (get @figwheel.main/build-registry "dev")
                 (figwheel.main.api/cljs-repl "dev")
                 (figwheel.main.api/start "dev")))
 
-(comment (start)
-         (stop)
-         (cljs)
-         integrant.repl.state/system)
+(comment
+  (cljs)
+  integrant.repl.state/system)

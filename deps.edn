@@ -7,6 +7,7 @@
            lynxeyes/dotenv           {:mvn/version "1.1.0"}
            clj-time/clj-time         {:mvn/version "0.15.2"}
            org.clojure/java.jdbc     {:mvn/version "0.7.12"}
+           ring/ring-defaults        {:mvn/version "0.3.4"}
            org.postgresql/postgresql {:mvn/version "42.5.1"}
            integrant/integrant       {:mvn/version "0.8.0"}
            http-kit/http-kit         {:mvn/version "2.6.0"}
