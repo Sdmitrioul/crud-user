@@ -31,7 +31,7 @@
                    :jvm-opts    ["-XX:-OmitStackTraceInFastThrow"]
                    }
            :build {:extra-paths ["build"]
-                   :deps        {io.github.clojure/tools.build {:git/tag "v0.8.5" :sha "9c738da"}}
+                   :deps        {io.github.clojure/tools.build {:git/tag "v0.8.5" :git/sha "9c738da"}}
                    :ns-default  build}
 
            }
