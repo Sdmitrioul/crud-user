@@ -36,6 +36,6 @@ jobs:
           zprint: 1.2.3                # zprint
 
       - name: Build app
-        run: clj -T:build uber
+        run: clojure -T:build uber
         env:
           APP_PORT: 8666
