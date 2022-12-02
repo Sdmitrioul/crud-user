@@ -4,6 +4,7 @@
     <option name="cljConfigPath" value="" />
     <option name="enabledAliases">
       <set>
+        <option value="build" />
         <option value="deps" />
         <option value="dev" />
         <option value="nREPL" />
@@ -13,6 +14,7 @@
     </option>
     <option name="toolAliases">
       <set>
+        <option value="build" />
         <option value="deps" />
         <option value="dev" />
         <option value="nREPL" />

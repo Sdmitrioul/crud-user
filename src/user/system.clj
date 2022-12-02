@@ -43,8 +43,8 @@
   (start-server 3000)
   (stop-server))
 
-(defn -main []
-  (let [port (env :APP_PORT)]
+(defn -main [& args]
+  (let [port (Integer/parseInt (env :APP_PORT))]
     (start-server port)
     (println (str "Running webserver at http:/127.0.0.1:" port "/"))
     ))
