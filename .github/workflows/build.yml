@@ -35,7 +35,10 @@ jobs:
           cmd-exe-workaround: 'latest' # Replaces `clojure` with `deps.clj` on Windows
           zprint: 1.2.3                # zprint
 
+      - name: install rlwrap
+        run: sudo apt install rlwrap
+
       - name: Build app
-        run: clojure -T:build uber
+        run: clj -T:build uber
         env:
           APP_PORT: 8666
